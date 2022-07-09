@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            margin: 0px;
+            padding: 8px;
+        }
+
+        #popupBackground {
+            background-color: rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            position: fixed;
+            left: 0px;
+            right: 0px;
+            top: 0px;
+            bottom: 0px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background-color: rgba(0, 153, 255, 0.55);
+            width: 50vw;
+            height: 50vh;
+            border-radius: 16px;
+            position: absolute;
+            top: 100px;
+            z-index: 200;
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="openPopup()">Popup öffnen</button>
+    <div id="popupBackground" onclick="closePopup()">
+        <div class="popup-content" onclick="doNotClose(event)">
+            
+            <!-- Event ist eine Variable innerhalb von JavaScript, DIE IMMER ZU VERFÜGUNG steht 
+                
+                Event ist ein OBJEKT MIT verschienenen FUNKTIONEN
+                
+                das muss hier als Variable in die Funktionen doNotClose() und eingetragen werden damit die JS Standardfunktion stopPropagation ausgeführt wird.
+                -->
+           
+            <form action="#">
+                <input type="text">
+                <input type="text">
+                <button onclick="save()">Speichern</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function openPopup(n, p) {
+            popupBackground.style.display = 'flex'; /*anscheinend muss die ID popupBackground hier nicht separat davor zugewiesen werden, da man mit script innerhalb des Dokumentes ist und nicht in einer separaten script.js Datei  */
+        }
+
+        function closePopup() {
+            popupBackground.style.display = 'none'
+        }
+
+        function save() {
+        }
+
+        function doNotClose(event) {
+            event.stopPropagation();
+        }             /* Diese Funktion stopPropagation gibt es immer im JavaScript und ist immer in dem event JS Objekt vorhanden. Diese unterbricht die Funktion hier closePopup, die höher rankiert ist und beim Drücken auf auf das Popup, wird somit das Popup nicht geschlossen nur die Funktion doNotClose(event) ausgeführt. */
+
+
+    </script>
+</body>
+
+</html>
